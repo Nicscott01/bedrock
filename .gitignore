@@ -7,6 +7,10 @@ web/app/uploads/*
 !web/app/uploads/.gitkeep
 #Themes
 web/app/themes/*
+#!web/app/themes/your-theme-1
+
+#node
+node_modules/
 
 # WordPress
 web/wp
