@@ -28,14 +28,10 @@
             "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
         },
         {
-            "type": "vcs",
-            "url": "git@github.com:Nicscott01/bric.git"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "5.9.4",
+                "version": "5.10.2",
                 "type": "wordpress-plugin",
                 "dist": {
                     "type": "zip",
@@ -48,29 +44,29 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=8.0",
         "composer/installers": "^1.8",
         "vlucas/phpdotenv": "^5.2",
         "oscarotero/env": "^2.1",
         "roots/bedrock-autoloader": "^1.0",
-        "roots/wordpress": "5.6",
+        "roots/wordpress": "^5.8",
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.0.0",
-        "wpackagist-plugin/spinupwp": "^1.2",
-        "wpackagist-plugin/limit-login-attempts-reloaded": "^2.19",
-        "advanced-custom-fields/advanced-custom-fields-pro": "^5.9",
-        "wpackagist-plugin/wp-ses": "^1.4",
-        "wpackagist-plugin/acf-content-analysis-for-yoast-seo": "^3.0",
-        "wpackagist-plugin/wordpress-seo": "^15.6",
-        "wpackagist-plugin/google-analytics-for-wordpress": "^7.14",
-        "wpackagist-plugin/enable-media-replace": "^3.5",
-        "wpackagist-plugin/ewww-image-optimizer": "^6.0",
-        "wpackagist-plugin/redirection": "^5.0",
-        "wpackagist-plugin/safe-svg": "^1.9",
-        "nicscott01/bric": "^2.0",
-        "wpackagist-plugin/disable-comments": "^2.1",
-        "wpackagist-plugin/advanced-bootstrap-blocks": "^1.7",
-        "wpackagist-plugin/gravityformscli": "^1.4"
+        "wpackagist-plugin/spinupwp": "*",
+        "wpackagist-plugin/limit-login-attempts-reloaded": "*",
+        "advanced-custom-fields/advanced-custom-fields-pro": "*",
+        "wpackagist-plugin/wp-ses": "*",
+        "wpackagist-plugin/acf-content-analysis-for-yoast-seo": "*",
+        "wpackagist-plugin/wordpress-seo": "*",
+        "wpackagist-plugin/google-analytics-for-wordpress": "*",
+        "wpackagist-plugin/enable-media-replace": "*",
+        "wpackagist-plugin/ewww-image-optimizer": "*",
+        "wpackagist-plugin/redirection": "*",
+        "wpackagist-plugin/safe-svg": "*",
+        "wpackagist-plugin/disable-comments": "*",
+        "wpackagist-plugin/advanced-bootstrap-blocks": "*",
+        "wpackagist-plugin/gravityformscli": "*",
+        "wpackagist-plugin/wp-cerber": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",
@@ -93,6 +89,8 @@
     "scripts": {
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\"",
+            "composer run install-bric",
+            "composer run install-gf",
             "composer run remove-default"
         ],
         "post-update-cmd": [
@@ -101,6 +99,13 @@
         "remove-default": [
             "rm -rf web/wp/wp-content/themes/*",
             "rm -rf web/wp/wp-content/plugins/hello.php"
+        ],
+        "install-bric": [
+            "git clone git@github.com:Nicscott01/bric.git ~/files/web/app/themes/bric"
+        ],
+        "install-gf": [
+            "wp plugin activate gravityformscli",
+            "wp gf install"
         ],
         "test": [
             "phpcs"
