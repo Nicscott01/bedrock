@@ -1,1 +1,1 @@
-# Creare Bedrock Template
+# Bedrock Template
