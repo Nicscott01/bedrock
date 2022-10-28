@@ -123,6 +123,13 @@ Config::define('WPOSES_AWS_ACCESS_KEY_ID', env('WPOSES_AWS_ACCESS_KEY_ID') ?? fa
 Config::define('WPOSES_AWS_SECRET_ACCESS_KEY', env('WPOSES_AWS_SECRET_ACCESS_KEY') ?? false);
 Config::define('WPOSES_HIDE_VERIFIED', true);
 
+
+/**
+ *  Developer Credits
+ */
+Config::define('DEVELOPER_NAME', env('DEVELOPER_NAME') ?? 'Creare Web Solutions');
+Config::define('DEVELOPER_URL', env('DEVELOPER_URL') ?? 'https://www.crearewebsolutions.com/');
+
 /**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
