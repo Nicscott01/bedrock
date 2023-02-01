@@ -31,7 +31,7 @@
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "6.0.2",
+                "version": "6.0.7",
                 "type": "wordpress-plugin",
                 "dist": {
                     "type": "zip",
@@ -64,7 +64,6 @@
         "wpackagist-plugin/redirection": "*",
         "wpackagist-plugin/safe-svg": "*",
         "wpackagist-plugin/disable-comments": "*",
-        "wpackagist-plugin/advanced-bootstrap-blocks": "*",
         "wpackagist-plugin/gravityformscli": "*",
         "wpackagist-plugin/cdn-enabler": "*",
         "wpackagist-plugin/wordfence": "*"
