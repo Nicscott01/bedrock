@@ -100,6 +100,12 @@ Config::define('DISALLOW_FILE_EDIT', true);
 // Disable plugin and theme updates and installation from the admin
 Config::define('DISALLOW_FILE_MODS', true);
 
+
+/**
+ *  WP Temp Directory
+ */
+Config::define( 'WP_TEMP_DIR', env('WP_TEMP_DIR' ) );
+
 /**
  *  Plugin Settings
  */
