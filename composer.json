@@ -96,9 +96,6 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\"",
-            "composer run install-bric",
-            "composer run install-gf",
             "composer run remove-default"
         ],
         "post-update-cmd": [
@@ -107,6 +104,11 @@
         "remove-default": [
             "rm -rf web/wp/wp-content/themes/*",
             "rm -rf web/wp/wp-content/plugins/hello.php"
+        ],
+        "install-keys": [
+            "wp plugin activate --all --exclude=wordfence,breakdance",
+            "wp plugin activate breakdance",
+            "wp eval-file activate-licenses.php"
         ],
         "install-bric": [
             "git clone git@github.com:Nicscott01/bric.git ~/files/web/app/themes/bric"

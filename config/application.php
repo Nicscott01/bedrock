@@ -38,6 +38,27 @@ if (file_exists($root_dir . '/.env')) {
 }
 
 /**
+ *  Load global dot file
+ *  with Creare keys
+ * 
+ */
+$global_keys_file = file_get_contents( '/etc/creare/keys.json' );
+
+if ( !empty( $global_keys_file ) ) {
+
+    $global_keys = json_decode( $global_keys_file );
+
+    //Loop through the keys and make a global constant for each one
+    foreach( $global_keys as $key => $value ) {
+
+        define( strtoupper( $key ), $vale );
+    }
+}
+
+
+
+
+/**
  * Set up our global environment constant and load its config first
  * Default: production
  */
@@ -143,6 +164,11 @@ Config::define('DEVELOPER_URL', env('DEVELOPER_URL') ?? 'https://www.crearewebso
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
     $_SERVER['HTTPS'] = 'on';
 }
+
+/**
+ *  License Keys
+ */
+
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
