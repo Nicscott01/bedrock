@@ -37,3 +37,5 @@ wp-cli.local.yml
 #Mac
 .DS_Store
 _notes
+
+.passwords
