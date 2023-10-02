@@ -61,9 +61,10 @@
         "wpackagist-plugin/safe-svg": "*",
         "wpackagist-plugin/disable-comments": "*",
         "wpackagist-plugin/gravityformscli": "*",
-        "wpackagist-plugin/cdn-enabler": "*",
         "wpackagist-plugin/wordfence": "*",
-        "wenmark/breakdance": "*"
+        "wpackagist-plugin/post-types-order": "*",
+        "wenmark/breakdance": "^1.5",
+        "wenmark/perfmatters": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",
@@ -96,19 +97,31 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "composer run remove-default"
+            "composer run remove-default",
+            "composer run install-repos"
         ],
         "post-update-cmd": [
-            "composer run remove-default"
+            "composer run remove-default",
+            "composer run update-repos"
         ],
         "remove-default": [
             "rm -rf web/wp/wp-content/themes/*",
             "rm -rf web/wp/wp-content/plugins/hello.php"
         ],
+        "wp-defaults": [
+            "wp option update timezone_string America/New_York",
+            "wp option update permalink_structure /%postname%/"
+        ],
         "install-keys": [
-            "wp plugin activate --all --exclude=wordfence,breakdance",
+            "wp plugin activate --all --exclude=wordfence,breakdance,google-analytics-for-wordpress,perfmatters",
             "wp plugin activate breakdance",
             "wp eval-file activate-licenses.php"
+        ],
+        "install-repos": [
+            "cd ~/files/web/app/plugins && git clone https://github.com/Nicscott01/breakdance-bootstrap"
+        ],
+        "update-repos": [
+            "cd ~/files/web/app/plugins/breakdance-bootstrap && git pull"
         ],
         "install-bric": [
             "git clone git@github.com:Nicscott01/bric.git ~/files/web/app/themes/bric"

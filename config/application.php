@@ -37,12 +37,14 @@ if (file_exists($root_dir . '/.env')) {
     }
 }
 
+
+
 /**
  *  Load global dot file
  *  with Creare keys
  * 
  */
-$global_keys_file = file_get_contents( '/etc/creare/keys.json' );
+$global_keys_file = file_get_contents( env('CREARE_GLOBAL_KEYS') );
 
 if ( !empty( $global_keys_file ) ) {
 
@@ -51,9 +53,30 @@ if ( !empty( $global_keys_file ) ) {
     //Loop through the keys and make a global constant for each one
     foreach( $global_keys as $key => $value ) {
 
-        define( strtoupper( $key ), $vale );
+        define( strtoupper( $key ), $value );
     }
 }
+
+
+/**
+ *  Load project settings constants
+ *  
+ * 
+ */
+$project_settings_file = file_get_contents( __DIR__ . '../../project-settings.json');
+
+if ( !empty( $project_settings_file ) ) {
+
+    $project_settings = json_decode( $project_settings_file );
+
+    //Loop through the keys and make a global constant for each one
+    foreach( $project_settings as $key => $value ) {
+
+        define( strtoupper( $key ), $value );
+    }
+}
+
+
 
 
 
@@ -130,7 +153,7 @@ Config::define( 'WP_TEMP_DIR', env('WP_TEMP_DIR' ) );
 /**
  *  Plugin Settings
  */
-Config::define( 'GF_LICENSE_KEY', env('GF_LICENSE_KEY' ) );
+Config::define( 'GF_LICENSE_KEY', GRAVITY_FORMS_KEY );
 
 
 /**
@@ -146,10 +169,13 @@ ini_set('display_errors', '0');
 /**
  * Email Settings
  */
-Config::define('WPOSES_AWS_ACCESS_KEY_ID', env('WPOSES_AWS_ACCESS_KEY_ID') ?? false );
-Config::define('WPOSES_AWS_SECRET_ACCESS_KEY', env('WPOSES_AWS_SECRET_ACCESS_KEY') ?? false);
-Config::define('WPOSES_HIDE_VERIFIED', true);
+if ( defined( 'AWS_ACCESS_KEY_ID' ) && defined( 'AWS_SECRET_ACCESS_KEY' ) ) {
 
+    Config::define('WPOSES_AWS_ACCESS_KEY_ID', AWS_ACCESS_KEY_ID ?? false );
+    Config::define('WPOSES_AWS_SECRET_ACCESS_KEY', AWS_SECRET_ACCESS_KEY ?? false);
+    Config::define('WPOSES_HIDE_VERIFIED', true);
+
+}
 
 /**
  *  Developer Credits
@@ -164,11 +190,6 @@ Config::define('DEVELOPER_URL', env('DEVELOPER_URL') ?? 'https://www.crearewebso
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
     $_SERVER['HTTPS'] = 'on';
 }
-
-/**
- *  License Keys
- */
-
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
