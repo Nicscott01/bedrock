@@ -1,61 +1,65 @@
 <?php
+/**
+ * 	create/update user.ini file for wordfence
+ *  MUST RUN THIS SCRIPT FROM THE ROOT OF THE PROJECT (one up from /web)
+ * 
+ * 	; Wordfence WAF
+ *	auto_prepend_file = '~/files/web/wordfence-waf.php'
+ * 	: END Wordfence WAF
+ * 
+ */
 
 
+$user_ini_path = __DIR__ . '/web/.user.ini';
+$waf_path = __DIR__ . '/web/wordfence-waf.php';
 
 
-//Check if the wordfence file exists in the wo directory
-//echo __DIR__ . 'web/wp/wordfence-waf.php';
+//Write the Waf file
+/**
+ * // Before removing this file, please verify the PHP ini setting `auto_prepend_file` does not point to this.
+ * 
+ * if (file_exists(__DIR__.'/app/plugins/wordfence/waf/bootstrap.php')) {
+ *	define("WFWAF_LOG_PATH", __DIR__.'/app/wflogs/');
+ *	include_once __DIR__.'/app/plugins/wordfence/waf/bootstrap.php';
+ *  }
+ */
 
-if ( file_exists( __DIR__ . '/web/wp/wordfence-waf.php') ) {
+ ob_start();
+?>
+// Before removing this file, please verify the PHP ini setting `auto_prepend_file` does not point to this.
 
-	$wordfence_waf = file_get_contents( __DIR__ . '/web/wp/wordfence-waf.php');
+if (file_exists(__DIR__.'/app/plugins/wordfence/waf/bootstrap.php')) {
+	define("WFWAF_LOG_PATH", __DIR__.'/app/wflogs/');
+	include_once __DIR__.'/app/plugins/wordfence/waf/bootstrap.php';
+}
+<?php
 
-	$wordfence_waf = str_replace( '../app', 'app', $wordfence_waf );
+$waf_file_contents = ob_get_clean();
 
-	if( file_put_contents( __DIR__ . '/web/wordfence-waf.php', $wordfence_waf ) ){
-		echo $wordfence_waf;
-		echo "The Wordfence WAF was written.\n";
-	} else {
+if ( file_put_contents( $waf_path, $waf_file_contents ) ) {
 
-		echo "The Wordfence WAF was not written.\n";
-	
-	}
+	echo 'New wordfence-waf.php written.';
+
 } else {
- 
-echo "There was an error.\n";
-
+	
+	echo 'The waf file was not written.';
 }
 
 
+//Write the  user INI
+$new_userini = "
+; Wordfence WAF
+auto_prepend_file = '$waf_path'
+: END Wordfence WAF
+";
 
+echo $new_userini;
 
-$userini = file_get_contents( __DIR__ . '/web/.user.ini' );
-
-if ( empty( $userini) ) {
-
-	echo "Could not find .user.ini file.";
-
-	return;
-
-}
-
-
-//Do a search-replace for the url string
-
-$needle = '/wp/wordfence-waf.php';
-$replace = '/wordfence-waf.php';
-
-$new_userini = str_replace( $needle, $replace,  $userini );
-
-
-if ( file_put_contents( __DIR__ . '/web/.user.ini', $new_userini ) ) {
+if ( file_put_contents( $user_ini_path, $new_userini ) ) {
 
 	echo 'New .user.ini written.';
-	echo $new_userini;
 
 } else {
 	
 	echo 'The file was not written.';
 }
-
-

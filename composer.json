@@ -48,6 +48,7 @@
         "roots/wordpress": "^6.0.2",
         "roots/wp-config": "1.0.0",
         "roots/wp-password-bcrypt": "1.0.0",
+        "rbdwllr/wordpress-salts-generator": "0.1.*",
         "wpackagist-plugin/spinupwp": "*",
         "wpackagist-plugin/limit-login-attempts-reloaded": "*",
         "wpengine/advanced-custom-fields-pro": "*",
