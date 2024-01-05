@@ -99,7 +99,8 @@
     "scripts": {
         "post-root-package-install": [
             "composer run remove-default",
-            "composer run install-repos"
+            "composer run install-repos",
+            "cp .env.example .env" 
         ],
         "post-update-cmd": [
             "composer run remove-default",

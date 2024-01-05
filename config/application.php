@@ -153,8 +153,11 @@ Config::define( 'WP_TEMP_DIR', env('WP_TEMP_DIR' ) );
 /**
  *  Plugin Settings
  */
-Config::define( 'GF_LICENSE_KEY', GRAVITY_FORMS_KEY );
+if ( defined( 'GRAVITY_FORMS_KEY' ) ) {
 
+    Config::define( 'GF_LICENSE_KEY', GRAVITY_FORMS_KEY );
+    
+}
 
 /**
  * Debugging Settings
