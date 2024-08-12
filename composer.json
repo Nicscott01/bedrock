@@ -114,7 +114,8 @@
         ],
         "wp-defaults": [
             "wp option update timezone_string America/New_York",
-            "wp option update permalink_structure /%postname%/"
+            "wp option update permalink_structure /%postname%/",
+            "wp option update start_of_week 0"
         ],
         "install-keys": [
             "wp plugin activate --all --exclude=wordfence,breakdance,google-analytics-for-wordpress,perfmatters",
