@@ -33,6 +33,35 @@ if ( defined( 'BREAKDANCE_KEY' ) ) {
 
 
 /**
+ *    Activate Breakdance AI
+ * 
+ */
+
+if ( defined( 'BREAKDANCE_AI_KEY') ) {
+
+   Breakdance\AI\setLicenseKey(BREAKDANCE_AI_KEY );
+
+}
+
+
+/**
+ *    Set BD Keys
+ * 
+ */
+
+if ( defined( 'GOOGLE_MAPS_KEY' ) ) {
+
+   Breakdance\APIKeys\setKey( BREAKDANCE_GOOGLE_MAPS_API_KEY_NAME, GOOGLE_MAPS_KEY );
+
+}
+if ( defined( 'OPEN_AI_KEY' ) ) {
+
+   Breakdance\APIKeys\setKey( 'openai', OPEN_AI_KEY );
+
+}
+
+
+/**
  *  Default Settings for WPSES
  *  
  */

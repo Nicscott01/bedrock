@@ -64,8 +64,10 @@
         "wpackagist-plugin/gravityformscli": "*",
         "wpackagist-plugin/wordfence": "*",
         "wpackagist-plugin/post-types-order": "*",
-        "wenmark/breakdance": "^1.5",
-        "wenmark/perfmatters": "*"
+        "wenmark/breakdance": "^2.0",
+        "wenmark/breakdance-ai": "*",
+        "wenmark/perfmatters": "*",
+        "wenmark/analyticswp": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",
@@ -117,6 +119,7 @@
         "install-keys": [
             "wp plugin activate --all --exclude=wordfence,breakdance,google-analytics-for-wordpress,perfmatters",
             "wp plugin activate breakdance",
+            "wp plugin activate breakdance-ai",
             "wp eval-file activate-licenses.php"
         ],
         "install-repos": [
