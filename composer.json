@@ -112,6 +112,11 @@
             "rm -rf web/wp/wp-content/themes/*",
             "rm -rf web/wp/wp-content/plugins/hello.php"
         ],
+        "easy-install" : [
+            "composer run install-repos",
+            "composer run install-keys",
+            "composer run wp-defaults"
+        ],
         "wp-defaults": [
             "wp option update timezone_string America/New_York",
             "wp option update permalink_structure /%postname%/",
