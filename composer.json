@@ -99,6 +99,9 @@
         "wordpress-install-dir": "web/wp"
     },
     "scripts": {
+        "pre-install-cmd": [
+            "bash create-creare-auth-symlink.sh"
+        ],
         "post-root-package-install": [
             "composer run remove-default",
             "composer run install-repos",
