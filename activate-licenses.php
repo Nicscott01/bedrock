@@ -61,6 +61,20 @@ if ( defined( 'OPEN_AI_KEY' ) ) {
 }
 
 
+ /**
+  *  Activate AnalyicsWP
+  */
+
+  if ( defined( 'ANALYTICSWP_KEY') ) {
+
+   AnalyticsWP\Lib\WooSoftwareLicense\WOO_SLT_Options_Interface::handle_activating_license( ANALYTICSWP_KEY );
+
+}
+
+
+
+
+
 /**
  *  Default Settings for WPSES
  *  
@@ -75,6 +89,35 @@ if ( defined( 'OPEN_AI_KEY' ) ) {
 
  update_option( 'wposes_settings', $ses_settings );
 
+
+
+
+
+
+/**
+ *    Default Settings for Breakdance
+ * 
+ */
+
+$bloat_eliminator_settings = [
+   'gutenberg-blocks-css',
+   'rsd-links',
+   'wlw-link',
+   'rest-api',
+   'shortlink',
+   'rel-links',
+   'wp-generator',
+   'feed-links',
+   'xml-rpc',
+   'wp-emoji',
+   'wp-oembed',
+   'wp-dashicons',
+];
+
+
+Breakdance\Data\set_global_option('breakdance_settings_bloat_eliminator', $bloat_eliminator_settings );
+Breakdance\Data\set_global_option('is_theme_disabled', 'yes');
+Breakdance\Data\set_global_option('breakdance_settings_disable_view_tracking_cookies', 'yes');
 
 
 echo "\nCompleted activations\n";
