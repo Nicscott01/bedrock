@@ -64,6 +64,7 @@
         "wpackagist-plugin/gravityformscli": "*",
         "wpackagist-plugin/wordfence": "*",
         "wpackagist-plugin/post-types-order": "*",
+        "wpackagist-plugin/duplicate-post": "*",
         "wenmark/breakdance": "^2.0",
         "wenmark/breakdance-ai": "*",
         "wenmark/perfmatters": "*",
