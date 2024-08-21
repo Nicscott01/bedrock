@@ -44,19 +44,21 @@ if (file_exists($root_dir . '/.env')) {
  *  with Creare keys
  * 
  */
-$global_keys_file = file_get_contents( env('CREARE_GLOBAL_KEYS') );
+if ( !empty( env('CREARE_GLOBAL_KEYS') ) && file_exists( env('CREARE_GLOBAL_KEYS') ) ) {
 
-if ( !empty( $global_keys_file ) ) {
+    $global_keys_file = file_get_contents( env('CREARE_GLOBAL_KEYS') );
 
-    $global_keys = json_decode( $global_keys_file );
+    if ( !empty( $global_keys_file ) ) {
 
-    //Loop through the keys and make a global constant for each one
-    foreach( $global_keys as $key => $value ) {
+        $global_keys = json_decode( $global_keys_file );
 
-        define( strtoupper( $key ), $value );
+        //Loop through the keys and make a global constant for each one
+        foreach( $global_keys as $key => $value ) {
+
+            define( strtoupper( $key ), $value );
+        }
     }
 }
-
 
 /**
  *  Load project settings constants
