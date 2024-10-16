@@ -37,7 +37,13 @@
                 "wpackagist-plugin/*",
                 "wpackagist-theme/*"
             ]
+        },
+        "gitnicscott": {
+            "type": "vcs",
+            "url": "https://github.com/Nicscott01/breakdance-bootstrap"
+
         }
+
     },
     "require": {
         "php": ">=8.0",
@@ -67,6 +73,7 @@
         "wpackagist-plugin/duplicate-post": "*",
         "wenmark/breakdance": "^2.0",
         "wenmark/breakdance-ai": "*",
+        "nicscott01/breakdance-bootstrap": "dev-arc",
         "wenmark/perfmatters": "*",
         "wenmark/analyticswp": "*"
     },
@@ -112,6 +119,9 @@
             "composer run remove-default",
             "composer run update-repos"
         ],
+        "post-install-cmd": [
+            "composer run gravity-forms-manage"
+        ],
         "remove-default": [
             "rm -rf web/wp/wp-content/themes/*",
             "rm -rf web/wp/wp-content/plugins/hello.php"
@@ -145,6 +155,12 @@
             "wp plugin activate gravityformscli",
             "wp gf install"
         ],
+        "gravity-forms-manage": [
+            "wp plugin is-installed gravityforms || wp gf install gravityforms && wp plugin activate gravityforms",
+            "wp plugin is-installed gravityforms && wp gf update gravityforms",
+            "wp plugin is-installed gravityformsrecaptcha && wp gf update gravityformsrecaptcha"
+        ],
+
         "test": [
             "phpcs"
         ]
