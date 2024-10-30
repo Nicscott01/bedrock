@@ -73,7 +73,7 @@
         "wpackagist-plugin/duplicate-post": "*",
         "wenmark/breakdance": "^2.0",
         "wenmark/breakdance-ai": "*",
-        "nicscott01/breakdance-bootstrap": "dev-arc",
+        "nicscott01/breakdance-bootstrap": "dev-main",
         "wenmark/perfmatters": "*",
         "wenmark/analyticswp": "*"
     },
@@ -160,7 +160,9 @@
             "wp plugin is-installed gravityforms && wp gf update gravityforms",
             "wp plugin is-installed gravityformsrecaptcha && wp gf update gravityformsrecaptcha"
         ],
-
+        "config-env":[
+            "node configure-env.js"
+        ],
         "test": [
             "phpcs"
         ]
