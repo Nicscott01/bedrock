@@ -112,12 +112,10 @@
         ],
         "post-root-package-install": [
             "composer run remove-default",
-            "composer run install-repos",
             "cp .env.example .env" 
         ],
         "post-update-cmd": [
-            "composer run remove-default",
-            "composer run update-repos"
+            "composer run remove-default"
         ],
         "post-install-cmd": [
             "composer run gravity-forms-manage"
@@ -141,12 +139,6 @@
             "wp plugin activate breakdance",
             "wp plugin activate breakdance-ai",
             "wp eval-file activate-licenses.php"
-        ],
-        "install-repos": [
-            "cd ~/files/web/app/plugins && git clone https://github.com/Nicscott01/breakdance-bootstrap"
-        ],
-        "update-repos": [
-            "cd ~/files/web/app/plugins/breakdance-bootstrap && git pull"
         ],
         "install-bric": [
             "git clone git@github.com:Nicscott01/bric.git ~/files/web/app/themes/bric"
