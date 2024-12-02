@@ -75,7 +75,8 @@
         "wenmark/breakdance-ai": "*",
         "nicscott01/breakdance-bootstrap": "dev-main",
         "wenmark/perfmatters": "*",
-        "wenmark/analyticswp": "*"
+        "wenmark/analyticswp": "*",
+        "wpackagist-plugin/fluent-crm": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",
