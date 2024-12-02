@@ -125,7 +125,6 @@
             "rm -rf web/wp/wp-content/plugins/hello.php"
         ],
         "easy-install" : [
-            "composer run install-repos",
             "composer run install-keys",
             "composer run wp-defaults"
         ],
@@ -139,9 +138,6 @@
             "wp plugin activate breakdance",
             "wp plugin activate breakdance-ai",
             "wp eval-file activate-licenses.php"
-        ],
-        "install-bric": [
-            "git clone git@github.com:Nicscott01/bric.git ~/files/web/app/themes/bric"
         ],
         "install-gf": [
             "wp plugin activate gravityformscli",
