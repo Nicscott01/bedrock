@@ -76,7 +76,8 @@
         "nicscott01/breakdance-bootstrap": "dev-main",
         "wenmark/perfmatters": "*",
         "wenmark/analyticswp": "*",
-        "wpackagist-plugin/fluent-crm": "*"
+        "wpackagist-plugin/fluent-crm": "*",
+        "wpackagist-plugin/forget-spam-comment": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",
