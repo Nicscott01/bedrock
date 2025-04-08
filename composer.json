@@ -136,9 +136,11 @@
             "wp option update start_of_week 0"
         ],
         "install-keys": [
-            "wp plugin activate --all --exclude=wordfence,breakdance,google-analytics-for-wordpress,perfmatters",
+            "wp plugin activate --all --exclude=wordfence,breakdance,breakdance-bootstrap,breakdance-gravityforms,google-analytics-for-wordpress,perfmatters",
             "wp plugin activate breakdance",
             "wp plugin activate breakdance-ai",
+            "wp plugin activate breakdance-bootstrap",
+            "wp plugin activate breakdance-gravityforms",
             "wp eval-file activate-licenses.php"
         ],
         "install-gf": [
