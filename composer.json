@@ -73,7 +73,7 @@
         "wpackagist-plugin/duplicate-post": "*",
         "wenmark/breakdance": "^2.0",
         "wenmark/breakdance-ai": "*",
-        "nicscott01/breakdance-bootstrap": "dev-main",
+        "nicscott01/breakdance-bootstrap": "*",
         "wenmark/perfmatters": "*",
         "wenmark/analyticswp": "*",
         "wpackagist-plugin/fluent-crm": "*",
