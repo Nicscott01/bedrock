@@ -42,7 +42,20 @@
             "type": "vcs",
             "url": "https://github.com/Nicscott01/breakdance-bootstrap"
 
+        },
+        "gitnicscott": {
+            "type": "vcs",
+            "url": "https://github.com/Nicscott01/breakdance-bootstrap"
+        },
+        "gitnicscottbdgf": {
+            "type": "vcs",
+            "url": "https://github.com/Nicscott01/breakdance-gravityforms"
+        },
+        "gitnicscottgffcrm": {
+            "type": "vcs",
+            "url": "https://github.com/Nicscott01/gf-fluentcrm-feed"
         }
+
 
     },
     "require": {
