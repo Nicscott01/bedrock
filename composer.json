@@ -130,14 +130,19 @@
             "cp .env.example .env" 
         ],
         "post-update-cmd": [
-            "composer run remove-default"
+            "composer run remove-default",
+             "@create-tmp-dir"
         ],
         "post-install-cmd": [
+             "@create-tmp-dir",
             "composer run gravity-forms-manage"
         ],
         "remove-default": [
             "rm -rf web/wp/wp-content/themes/*",
             "rm -rf web/wp/wp-content/plugins/hello.php"
+        ],
+        "create-tmp-dir": [
+            "php -r \"if (!is_dir(getenv('HOME') . '/tmp')) mkdir(getenv('HOME') . '/tmp', 0775, true);\""
         ],
         "easy-install" : [
             "composer run install-keys",
