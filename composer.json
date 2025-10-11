@@ -85,7 +85,8 @@
         "wpackagist-plugin/fluent-crm": "*",
         "wpackagist-plugin/forget-spam-comment": "*",
         "wpackagist-plugin/seo-by-rank-math": "*",
-        "wenmark/seo-by-rank-math-pro": "*"
+        "wenmark/seo-by-rank-math-pro": "*",
+        "wpackagist-plugin/honeypot": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",
@@ -161,12 +162,13 @@
         ],
         "install-gf": [
             "wp plugin activate gravityformscli",
-            "wp gf install"
+            "wp gf install",
+            "wp gf install gravityformsturnstile"
         ],
         "gravity-forms-manage": [
             "wp plugin is-installed gravityforms || wp gf install gravityforms && wp plugin activate gravityforms",
             "wp plugin is-installed gravityforms && wp gf update gravityforms",
-            "wp plugin is-installed gravityformsrecaptcha && wp gf update gravityformsrecaptcha"
+            "wp plugin is-installed gravityformsturnstile && wp gf update gravityformsturnstile"
         ],
         "config-env":[
             "node configure-env.js"
