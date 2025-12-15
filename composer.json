@@ -154,7 +154,6 @@
             "wp plugin activate breakdance",
             "wp plugin activate breakdance-ai",
             "wp plugin activate breakdance-bootstrap",
-            "wp plugin activate breakdance-gravityforms",
             "wp eval-file activate-licenses.php",
             "wp post create --post_title='Privacy Policy' --post_type=website_policy --post_status=publish",
             "wp post create --post_title='Cookie Policy' --post_type=website_policy --post_status=publish",
