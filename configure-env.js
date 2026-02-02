@@ -34,12 +34,15 @@ const updateEnvContent = (content, key, value, useDoubleQuotes = false) => {
 };
 
 // Function to extract domain from the working directory
-const extractDomain = (workingDir) => {
+const extractDomain = async (workingDir) => {
   const match = workingDir.match(/\/sites\/([^/]+)\/files/);
   if (match && match[1]) {
     return match[1];
   } else {
-    throw new Error("Unable to extract domain from working directory.");
+    // If automatic extraction fails, prompt for manual entry
+    console.log("Unable to extract domain from working directory (local environment detected).");
+    const domain = await askQuestion('Enter the domain name (e.g., example.test): ');
+    return domain;
   }
 };
 
@@ -58,6 +61,7 @@ const generateEnvFile = async () => {
   const dbName = await askQuestion('Enter the database name (DB_NAME): ');
   const dbUser = await askQuestion('Enter the database user (DB_USER): ');
   const dbPassword = await askQuestion('Enter the database password (DB_PASSWORD): ');
+  const dbHost = await askQuestion('Enter the database host [default: 127.0.0.1]: ') || '127.0.0.1';
   let dbPrefix = await askQuestion('Enter the database prefix (DB_PREFIX) or press enter to auto-generate: ');
 
   dbPrefix = ensureTrailingUnderscore(dbPrefix || generatePrefix());
@@ -70,13 +74,17 @@ const generateEnvFile = async () => {
     '3': 'production'
   }[wpEnv] || 'development';
 
-  const domain = extractDomain(workingDir);
+  const domain = await extractDomain(workingDir);
   const wpHome = `https://${domain}`;
-  const wpTempDir = `/sites/${domain}/tmp/`;
+  
+  // Ask for temp directory (with sensible default for local environments)
+  const defaultTempDir = workingDir.match(/\/sites\//) ? `/sites/${domain}/tmp/` : `${workingDir}/tmp/`;
+  const wpTempDir = await askQuestion(`Enter the temp directory path [default: ${defaultTempDir}]: `) || defaultTempDir;
 
   content = updateEnvContent(content, 'DB_NAME', dbName);
   content = updateEnvContent(content, 'DB_USER', dbUser);
   content = updateEnvContent(content, 'DB_PASSWORD', dbPassword);
+  content = updateEnvContent(content, 'DB_HOST', dbHost);
   content = updateEnvContent(content, 'DB_PREFIX', dbPrefix);
   content = updateEnvContent(content, 'WP_ENV', wpEnvValue);
   content = updateEnvContent(content, 'WP_HOME', wpHome);
