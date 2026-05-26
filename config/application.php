@@ -55,7 +55,9 @@ if ( !empty( env('CREARE_GLOBAL_KEYS') ) && file_exists( env('CREARE_GLOBAL_KEYS
         //Loop through the keys and make a global constant for each one
         foreach( $global_keys as $key => $value ) {
 
-            define( strtoupper( $key ), $value );
+            //Define from the global unless it's already defined in the environment, then use the environment value
+            define( strtoupper( $key ), env( strtoupper( $key ) ) ?? $value );
+
         }
     }
 }
