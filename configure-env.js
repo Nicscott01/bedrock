@@ -3,17 +3,20 @@ const readline = require('readline');
 const path = require('path');
 const { exec } = require('child_process');
 
+const pipedAnswers = process.stdin.isTTY ? null : fs.readFileSync(0, 'utf8').split(/\r?\n/);
+const rl = process.stdin.isTTY ? readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+}) : null;
+
 // Helper function to prompt user for input
 const askQuestion = (query) => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  if (pipedAnswers) {
+    process.stdout.write(query);
+    return Promise.resolve(pipedAnswers.shift() || '');
+  }
 
-  return new Promise((resolve) => rl.question(query, (ans) => {
-    rl.close();
-    resolve(ans);
-  }));
+  return new Promise((resolve) => rl.question(query, resolve));
 };
 
 // Function to generate a random prefix
@@ -31,6 +34,15 @@ const updateEnvContent = (content, key, value, useDoubleQuotes = false) => {
   } else {
     return content + `\n${key}=${formattedValue}`;
   }
+};
+
+// Function to create a site-local SES settings file when credentials are available.
+const writeSesConfigFile = (filePath, config) => {
+  const directory = path.dirname(filePath);
+
+  fs.mkdirSync(directory, { recursive: true, mode: 0o700 });
+  fs.writeFileSync(filePath, JSON.stringify(config, null, 2) + '\n', { mode: 0o600 });
+  fs.chmodSync(filePath, 0o600);
 };
 
 // Function to extract domain from the working directory
@@ -82,6 +94,16 @@ const generateEnvFile = async () => {
   const defaultTempDir = workingDir.match(/\/sites\//) ? `/sites/${domain}/tmp/` : `${workingDir}/tmp/`;
   const wpTempDir = await askQuestion(`Enter the temp directory path [default: ${defaultTempDir}]: `) || defaultTempDir;
   const creareSesConfig = await askQuestion(`Enter the SES config path [default: ${defaultSesConfig}]: `) || defaultSesConfig;
+  const sesAccessKeyId = await askQuestion('Enter the SES access key ID, or press enter to skip SES config file creation: ');
+  let sesSecretAccessKey = '';
+  let sesDefaultEmail = '';
+  let sesDefaultEmailName = '';
+
+  if (sesAccessKeyId) {
+    sesSecretAccessKey = await askQuestion('Enter the SES secret access key: ');
+    sesDefaultEmail = await askQuestion(`Enter the default SES From email [default: website@${domain}]: `) || `website@${domain}`;
+    sesDefaultEmailName = await askQuestion('Enter the default SES From name [default: Website]: ') || 'Website';
+  }
 
   content = updateEnvContent(content, 'DB_NAME', dbName);
   content = updateEnvContent(content, 'DB_USER', dbUser);
@@ -94,7 +116,37 @@ const generateEnvFile = async () => {
   content = updateEnvContent(content, 'WP_DEBUG_LOG', '~/logs/debug.log');
   content = updateEnvContent(content, 'WP_TEMP_DIR', wpTempDir);
   content = updateEnvContent(content, 'CREARE_GLOBAL_KEYS', '/etc/creare/keys.json');
-  content = updateEnvContent(content, 'CREARE_SES_CONFIG', creareSesConfig);
+
+  if (sesAccessKeyId && sesSecretAccessKey) {
+    content = updateEnvContent(content, 'CREARE_SES_CONFIG', creareSesConfig);
+    writeSesConfigFile(creareSesConfig, {
+      access_key_id: sesAccessKeyId,
+      secret_access_key: sesSecretAccessKey,
+      region: 'us-east-1',
+      identity: domain.replace(/^www\./, ''),
+      iam_user: `ses-${domain.replace(/^www\./, '')}`,
+      configuration_set: `ses-${domain.replace(/^www\./, '').replace(/\./g, '-')}`,
+      default_email: sesDefaultEmail,
+      default_email_name: sesDefaultEmailName,
+      reply_to: '',
+      return_path: `ses@${domain.replace(/^www\./, '')}`,
+      send_via_ses: true,
+      enqueue_only: false,
+      enable_open_tracking: true,
+      enable_click_tracking: true,
+      log_duration: '30',
+      delete_successful: false,
+      delete_re_sent_failed: false,
+    });
+    console.log(`SES config file written to ${creareSesConfig}.`);
+  } else {
+    fs.mkdirSync(path.dirname(creareSesConfig), { recursive: true, mode: 0o700 });
+    console.log(`SES config file skipped. Created directory ${path.dirname(creareSesConfig)}.`);
+  }
+
+  if (rl) {
+    rl.close();
+  }
 
   // Save the .env file without the salts
   fs.writeFileSync(envFilePath, content, 'utf8');
