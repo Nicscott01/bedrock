@@ -174,17 +174,6 @@ ini_set('display_errors', '0');
 
 
 /**
- * Email Settings
- */
-if ( defined( 'AWS_ACCESS_KEY_ID' ) && defined( 'AWS_SECRET_ACCESS_KEY' ) ) {
-
-    Config::define('WPOSES_AWS_ACCESS_KEY_ID', AWS_ACCESS_KEY_ID ?? false );
-    Config::define('WPOSES_AWS_SECRET_ACCESS_KEY', AWS_SECRET_ACCESS_KEY ?? false);
-    Config::define('WPOSES_HIDE_VERIFIED', true);
-
-}
-
-/**
  *  Developer Credits
  */
 Config::define('DEVELOPER_NAME', env('DEVELOPER_NAME') ?? 'Creare Web Solutions');
@@ -203,6 +192,14 @@ $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 if (file_exists($env_config)) {
     require_once $env_config;
 }
+
+// BEGIN Creare WP Offload SES managed settings
+require_once '/etc/creare/wp-ses-loader.php';
+
+if (env('CREARE_SES_CONFIG')) {
+    creare_wp_ses_define(env('CREARE_SES_CONFIG'));
+}
+// END Creare WP Offload SES managed settings
 
 Config::apply();
 

@@ -76,10 +76,12 @@ const generateEnvFile = async () => {
 
   const domain = await extractDomain(workingDir);
   const wpHome = `https://${domain}`;
+  const defaultSesConfig = `/sites/${domain}/emailsettings/ses.json`;
   
   // Ask for temp directory (with sensible default for local environments)
   const defaultTempDir = workingDir.match(/\/sites\//) ? `/sites/${domain}/tmp/` : `${workingDir}/tmp/`;
   const wpTempDir = await askQuestion(`Enter the temp directory path [default: ${defaultTempDir}]: `) || defaultTempDir;
+  const creareSesConfig = await askQuestion(`Enter the SES config path [default: ${defaultSesConfig}]: `) || defaultSesConfig;
 
   content = updateEnvContent(content, 'DB_NAME', dbName);
   content = updateEnvContent(content, 'DB_USER', dbUser);
@@ -92,6 +94,7 @@ const generateEnvFile = async () => {
   content = updateEnvContent(content, 'WP_DEBUG_LOG', '~/logs/debug.log');
   content = updateEnvContent(content, 'WP_TEMP_DIR', wpTempDir);
   content = updateEnvContent(content, 'CREARE_GLOBAL_KEYS', '/etc/creare/keys.json');
+  content = updateEnvContent(content, 'CREARE_SES_CONFIG', creareSesConfig);
 
   // Save the .env file without the salts
   fs.writeFileSync(envFilePath, content, 'utf8');
