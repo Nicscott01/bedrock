@@ -49,9 +49,11 @@
         "gitnicscottgffcrm": {
             "type": "vcs",
             "url": "https://github.com/Nicscott01/gf-fluentcrm-feed"
+        },
+        "gitnicscottbreakdanceloginbranding": {
+            "type": "vcs",
+            "url": "https://github.com/Nicscott01/breakdance-login-branding"
         }
-
-
     },
     "require": {
         "php": ">=8.0",
@@ -86,7 +88,8 @@
         "wpackagist-plugin/forget-spam-comment": "*",
         "wpackagist-plugin/seo-by-rank-math": "*",
         "wenmark/seo-by-rank-math-pro": "*",
-        "wpackagist-plugin/honeypot": "*"
+        "wpackagist-plugin/honeypot": "*",
+        "nicscott01/breakdance-login-branding": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5.8",

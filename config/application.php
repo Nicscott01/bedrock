@@ -194,9 +194,13 @@ if (file_exists($env_config)) {
 }
 
 // BEGIN Creare WP Offload SES managed settings
-require_once '/etc/creare/wp-ses-loader.php';
+$creare_ses_loader = '/etc/creare/wp-ses-loader.php';
 
-if (env('CREARE_SES_CONFIG')) {
+if (file_exists($creare_ses_loader)) {
+    require_once $creare_ses_loader;
+}
+
+if (function_exists('creare_wp_ses_define') && env('CREARE_SES_CONFIG')) {
     creare_wp_ses_define(env('CREARE_SES_CONFIG'));
 }
 // END Creare WP Offload SES managed settings

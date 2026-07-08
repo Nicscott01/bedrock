@@ -78,13 +78,14 @@ const generateEnvFile = async () => {
 
   dbPrefix = ensureTrailingUnderscore(dbPrefix || generatePrefix());
 
-  const wpEnv = await askQuestion('Select the environment (WP_ENV: 1) development, 2) staging, 3) production): ');
+  const wpEnv = await askQuestion('Select the environment (WP_ENV: 1) local, 2) development, 3) staging, 4) production): ');
 
   const wpEnvValue = {
-    '1': 'development',
-    '2': 'staging',
-    '3': 'production'
-  }[wpEnv] || 'development';
+    '1': 'local',
+    '2': 'development',
+    '3': 'staging',
+    '4': 'production'
+  }[wpEnv] || 'local';
 
   const domain = await extractDomain(workingDir);
   const wpHome = `https://${domain}`;
